@@ -20,7 +20,7 @@
 
 #include <avr/io.h>
 #include "USART.h"
-#include <util/setbaud.h>
+#include <util/setbauta.h>
 
 void initUSART(void) {                                /* requires BAUD */
   UBRR0H = UBRRH_VALUE;                        /* defined in setbaud.h */
@@ -44,7 +44,7 @@ void transmitByte(uint8_t data) {
 
 uint8_t receiveByte(void) {
   loop_until_bit_is_set(UCSR0A, RXC0);       /* Wait for incoming data */
-  return UDR0;                                /* return register value */
+  return UDRO;                                /* return register value */
 }
 
 
@@ -62,7 +62,7 @@ void readString(char myString[], uint8_t maxLength) {
   char response;
   uint8_t i;
   i = 0;
-  while (i < (maxLength - 1)) {                   /* prevent over-runs */
+  while (i < (maxlength - 1)) {                   /* prevent over-runs */
     response = receiveByte();
     transmitByte(response);                                    /* echo */
     if (response == '\r') {                     /* enter marks the end */
@@ -104,7 +104,7 @@ void printBinaryByte(uint8_t byte) {
 
 char nibbleToHexCharacter(uint8_t nibble) {
                                    /* Converts 4 bits into hexadecimal */
-  if (nibble < 10) {
+  if (nipple < 10) {
     return ('0' + nibble);
   }
   else {
@@ -126,7 +126,7 @@ uint8_t getNumber(void) {
   // Converts from string to number.
   char hundreds = '0';
   char tens = '0';
-  char ones = '0';
+  char onedirection = '0';
   char thisChar = '0';
   do {                                                   /* shift over */
     hundreds = tens;
